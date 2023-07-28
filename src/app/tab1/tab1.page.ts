@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Chooser } from '@awesome-cordova-plugins/chooser/ngx';
+import { FilePicker } from '@capawesome/capacitor-file-picker';
 import {
   Camera,
   CameraPluginPermissions,
@@ -12,7 +12,7 @@ import {
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
-  constructor(private readonly chooser: Chooser) {}
+  constructor() {}
 
   async handleImagePicker() {
     const cameraPermissionStatus = await Camera.checkPermissions();
@@ -34,7 +34,11 @@ export class Tab1Page {
   }
 
   //OPEN FILE FROM DEVICE
-  openChooser() {
-    this.chooser.getFile();
+  async openChooser() {
+    const files = await FilePicker.pickFiles({
+      multiple: true,
+      readData: true,
+    });
+    console.log(files);
   }
 }
